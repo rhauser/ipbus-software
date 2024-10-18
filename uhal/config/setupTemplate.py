@@ -1,5 +1,6 @@
 
 import os, sys
+import setuptools
 from distutils.core import setup
 from os import walk
 from os.path import join, relpath
