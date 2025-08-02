@@ -67,7 +67,7 @@ _rpmbuild: _setup_update
 .PHONY: _setup_update	
 _setup_update:
 	${MakeDir} ${RPMBUILD_DIR}
-	cp ${BUILD_UTILS_DIR}/setupTemplate.py ${RPMBUILD_DIR}/${PackageName}.py
+	cp ${BUILD_UTILS_DIR}/setupTemplate.py ${RPMBUILD_DIR}/setup.py
 	sed -i -e 's#__python_packages__#${PythonModules}#' \
 	       -e 's#__packagename__#${PackageName}#' \
 	       -e 's#__version__#${PACKAGE_VER_MAJOR}.${PACKAGE_VER_MINOR}.${PACKAGE_VER_PATCH}#' \
@@ -77,7 +77,7 @@ _setup_update:
 	       -e 's#__project__#${Project}#' \
 	       -e 's#__install_dir__#${CACTUS_ROOT}#' \
 	       -e 's#__package_build_dir__#${RPMBUILD_DIR}#' \
-	       ${RPMBUILD_DIR}/${PackageName}.py
+	       ${RPMBUILD_DIR}/setup.py
 
 
 .PHONY: cleanrpm _cleanrpm
@@ -96,4 +96,4 @@ install: _setup_update
 	# Change into rpm/pkg to finally run the customized setup.py
 	if [ -f setup.cfg ]; then cp setup.cfg ${RPMBUILD_DIR}/ ; fi
 	cd ${RPMBUILD_DIR} && \
-	  bindir=$(bindir) ${PYTHON} ${PackageName}.py install $(if ${CUSTOM_INSTALL_PREFIX},--prefix=${prefix},) $(if ${CUSTOM_INSTALL_PREFIX}${CUSTOM_INSTALL_EXEC_PREFIX},--exec-prefix=${exec_prefix},)
+	  bindir=$(bindir) $(if ${CUSTOM_INSTALL_PREFIX}, PYTHONUSERBASE=${prefix},) ${PYTHON} -m pip install --user .
