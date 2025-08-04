@@ -96,4 +96,4 @@ install: _setup_update
 	# Change into rpm/pkg to finally run the customized setup.py
 	if [ -f setup.cfg ]; then cp setup.cfg ${RPMBUILD_DIR}/ ; fi
 	cd ${RPMBUILD_DIR} && \
-	  bindir=$(bindir) $(if ${CUSTOM_INSTALL_PREFIX}, PYTHONUSERBASE=${prefix},) ${PYTHON} -m pip install --user .
+	  bindir=$(bindir) ${PYTHON} -m pip install  $(if ${CUSTOM_INSTALL_PREFIX}, --prefix=${prefix},) .
