@@ -8,6 +8,7 @@ cmake_minimum_required(VERSION 3.26)
 set(IPBUS_VERSION 2.17.0 CACHE STRING "Version of IPBus")
 set(BOOST_MINIMAL_VERSION 1.86.0 CACHE STRING "Minimum version of Boost to use")
 set(PUGIXML_MINIMAL_VERSION 1.13 CACHE STRING "Minimal version of pugixml to use")
+set(PYTHON_MINIMAL_VERSION 3.6 CACHE STRING "Minimal version of Python to use")
 
 # calculate ABI version
 string(REGEX MATCH "[0-9]+\.[0-9]+" IPBUS_ABI_VERSION ${IPBUS_VERSION})
