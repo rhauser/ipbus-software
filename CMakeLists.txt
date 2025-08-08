@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.26)
 
-set(IPBUS_VERSION 2.17.0 CACHE STRING "Version of IPBus")
+set(IPBUS_VERSION 2.8.17 CACHE STRING "Version of IPBus")
 
 project(IPBus VERSION ${IPBUS_VERSION} LANGUAGES C CXX)
 
@@ -27,6 +27,7 @@ endif()
 string(REGEX MATCH "[0-9]+\.[0-9]+" IPBUS_ABI_VERSION ${IPBUS_VERSION})
 
 include(CTest)
+set(CMAKE_INSTALL_LIBDIR lib)
 include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 11)
