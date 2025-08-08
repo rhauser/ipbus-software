@@ -19,6 +19,10 @@ set(BOOST_MINIMAL_VERSION 1.86.0 CACHE STRING "Minimum version of Boost to use")
 set(PUGIXML_MINIMAL_VERSION 1.13 CACHE STRING "Minimal version of pugixml to use")
 set(PYTHON_MINIMAL_VERSION 3.6 CACHE STRING "Minimal version of Python to use")
 
+if(NOT DEFINED CPACK_PACKAGING_INSTALL_PREFIX)
+  set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/cactus")
+endif()
+
 # calculate ABI version
 string(REGEX MATCH "[0-9]+\.[0-9]+" IPBUS_ABI_VERSION ${IPBUS_VERSION})
 
@@ -38,5 +42,25 @@ endif()
 if(BUILD_CONTROLHUB)
   add_subdirectory(controlhub)
 endif()
+
+# RPM generation fine tuning
+set(CPACK_RPM_PACKAGE_RELOCATABLE TRUE)
+set(CPACK_RPM_PACKAGE_RELEASE_DIST TRUE)
+
+cmake_host_system_information(RESULT os_id QUERY DISTRIB_ID)
+cmake_host_system_information(RESULT os_version QUERY DISTRIB_VERSION_ID)
+
+if(${os_id} STREQUAL "almalinux" OR
+    ${os_id} STREQUAL "rhel" OR
+    ${os_id} STREQUAL "rocky" OR
+    ${os_id} STREQUAL "ol")
+  set(os_id "el")
+endif()
+
+if(NOT ${os_id} STREQUAL "ubuntu")
+  string(REGEX MATCH "[0-9]+" os_version ${os_version})
+endif()
+
+set(CPACK_RPM_FILE_NAME ${PROJECT_NAME}-${PROJECT_VERSION}.${os_id}${os_version}.${CMAKE_HOST_SYSTEM_PROCESSOR}.rpm)
 
 include(CPack)
