@@ -91,6 +91,9 @@ target_link_libraries(cactus_uhal_uhal PUBLIC
   Boost::chrono
   Boost::date_time)
 
+set_target_properties(cactus_uhal_uhal PROPERTIES VERSION ${IPBUS_VERSION})
+set_target_properties(cactus_uhal_uhal PROPERTIES SOVERSION ${IPBUS_ABI_VERSION})
+
 # target_compile_options(cactus_uhal_uhal PRIVATE -fdelayed-template-parsing -Wno-c++-extensions)
 
 install(TARGETS cactus_uhal_uhal

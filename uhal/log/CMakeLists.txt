@@ -33,6 +33,8 @@ target_sources(cactus_uhal_log PUBLIC FILE_SET HEADERS
 
 find_package(Threads REQUIRED)
 target_link_libraries(cactus_uhal_log PUBLIC Threads::Threads)
+set_target_properties(cactus_uhal_log PROPERTIES VERSION ${IPBUS_VERSION})
+set_target_properties(cactus_uhal_log PROPERTIES SOVERSION ${IPBUS_ABI_VERSION})
 
 add_executable(generator
   src/common/generator.cxx)

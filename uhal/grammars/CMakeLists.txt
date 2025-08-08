@@ -21,6 +21,8 @@ target_sources(cactus_uhal_grammars PUBLIC FILE_SET HEADERS
 )
 
 target_link_libraries(cactus_uhal_grammars PUBLIC Boost::headers)
+set_target_properties(cactus_uhal_grammars PROPERTIES VERSION ${IPBUS_VERSION})
+set_target_properties(cactus_uhal_grammars PROPERTIES SOVERSION ${IPBUS_ABI_VERSION})
 
 install(TARGETS cactus_uhal_grammars
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

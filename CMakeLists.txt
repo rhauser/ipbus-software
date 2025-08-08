@@ -9,7 +9,14 @@ set(IPBUS_VERSION 2.17.0 CACHE STRING "Version of IPBus")
 set(BOOST_MINIMAL_VERSION 1.86.0 CACHE STRING "Minimum version of Boost to use")
 set(PUGIXML_MINIMAL_VERSION 1.13 CACHE STRING "Minimal version of pugixml to use")
 
+# calculate ABI version
+string(REGEX MATCH "[0-9]+\.[0-9]+" IPBUS_ABI_VERSION ${IPBUS_VERSION})
+message(STATUS "IPBus ${IPBUS_VERSION} ${IPBUS_ABI_VERSION}")
+
 project(IPBus VERSION ${IPBUS_VERSION} LANGUAGES C CXX)
+
+include(CTest)
+# include(CTestUseLaunchers)
 
 include(GNUInstallDirs)
 
@@ -26,7 +33,7 @@ FetchContent_Declare(pugixml
   DOWNLOAD_EXTRACT_TIMESTAMP TRUE
   FIND_PACKAGE_ARGS ${PUGIXML_MINIMAL_VERSION})
 
-set(BOOST_INCLUDE_LIBRARIES thread filesystem system chrono date_time)
+set(BOOST_INCLUDE_LIBRARIES thread filesystem system chrono date_time program_options test)
 set(BOOST_ENABLE_CMAKE ON)
 
 FetchContent_Declare(Boost
