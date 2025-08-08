@@ -1,5 +1,5 @@
 
-find_package(Python ${PYTHON_MINIMAL_VERSION} REQUIRED COMPONENTS Development.Module)
+find_package(Python ${PYTHON_MINIMAL_VERSION} REQUIRED COMPONENTS Interpreter Development.Module)
 
 Python_add_library(_core MODULE
   src/common/cactus_pycohal.cpp
